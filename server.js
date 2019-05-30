@@ -45,6 +45,10 @@ SALT_WORK_FACTOR = 12;
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
+
+// Sequelize does not update automatically if you add columns to your tables,
+// m to fix it Use db.sequelize.sync({force= true}).then(function ()... instead 
+// and remove it once you update it.o  
 db.sequelize.sync().then(function () {
   app.listen(Port, () => console.log(`Server started on port ${Port}`));
 });
