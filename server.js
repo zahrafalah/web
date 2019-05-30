@@ -20,7 +20,18 @@ app.use(bodyParser.json());
 
 // Routes
 // =============================================================
-require('./routes/api-routes.js')(app);
+const apiRoutes = require('./routes/index.js');
+//connects all routes
+app.use(apiRoutes);
+
+//Authorization
+//==============================================================
+const passport = require('passport');
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+SALT_WORK_FACTOR = 12;
 
 //starter Pack. Hard-coded Data
 // app.get('/api/users', (req, res) => {
@@ -34,6 +45,6 @@ require('./routes/api-routes.js')(app);
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
-db.sequelize.sync().then(function() {
+db.sequelize.sync().then(function () {
   app.listen(Port, () => console.log(`Server started on port ${Port}`));
 });
